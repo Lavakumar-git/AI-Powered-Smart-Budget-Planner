@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Budgets | SmartBudget{% endblock %}
+{% block page_heading %}Budgets{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Monthly budgets</h1><p>Set a limit for each category and see how you are tracking.</p></div></div>
+<div class="dashboard-content"><div class="dashboard-card"><div class="card-header"><h3>Create a budget</h3></div><form method="post" class="auth-form">{% csrf_token %}{% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}{% for field in form %}<div class="form-group"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.errors %}<div class="field-error">{{ field.errors }}</div>{% endif %}</div>{% endfor %}<button type="submit" class="auth-submit">Save budget <i class="fa-solid fa-check"></i></button></form></div>
+<div class="dashboard-card"><div class="card-header"><h3>Your budgets</h3></div>{% for row in budget_rows %}<div class="transaction-row"><div><strong>{{ row.budget.category }} · {{ row.budget.month|date:"F Y" }}</strong><span>Spent ₹{{ row.spent|floatformat:2 }} of ₹{{ row.budget.amount|floatformat:2 }}</span></div><div><strong class="{% if row.remaining < 0 %}expense-value{% else %}income-value{% endif %}">₹{{ row.remaining|floatformat:2 }}</strong><form method="post" action="{% url 'budget_delete' row.budget.pk %}">{% csrf_token %}<button class="text-button" type="submit">Delete</button></form></div></div>{% empty %}<p>No budgets yet.</p>{% endfor %}</div></div>
+{% endblock %}

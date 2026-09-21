@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Assistant | SmartBudget{% endblock %}
+{% block page_heading %}AI Assistant{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Your financial assistant</h1><p>Practical guidance generated from your current-month activity.</p></div></div>
+<div class="dashboard-grid"><div class="stat-card"><div class="stat-card-icon"><i class="fa-solid fa-arrow-trend-up"></i></div><div><span>Monthly income</span><h2>₹{{ income|floatformat:2 }}</h2></div></div><div class="stat-card"><div class="stat-card-icon"><i class="fa-solid fa-arrow-trend-down"></i></div><div><span>Monthly spending</span><h2>₹{{ expenses|floatformat:2 }}</h2></div></div></div>
+<div class="dashboard-card"><div class="card-header"><h3>Personalized insights</h3><i class="fa-solid fa-wand-magic-sparkles"></i></div>{% for insight in insights %}<div class="transaction-row"><span>{{ insight }}</span></div>{% empty %}<p>Add some transactions to receive guidance.</p>{% endfor %}</div>
+{% endblock %}

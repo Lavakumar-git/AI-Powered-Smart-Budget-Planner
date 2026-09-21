@@ -1,0 +1,200 @@
+{% extends "base.html" %} {% block title %}Dashboard | SmartBudget{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <div>
+    <h1>Dashboard</h1>
+    <p>Welcome back, {{ request.user.username }}.</p>
+  </div>
+  <form method="get" class="month-filter">
+    <label for="month">Month</label>
+    <input id="month" name="month" type="month" value="{{ selected_month }}" />
+    <button class="secondary-btn" type="submit">View</button>
+  </form>
+</div>
+
+<div class="dashboard-grid">
+  <div class="stat-card">
+    <div class="stat-card-icon">
+      <i class="fa-solid fa-arrow-trend-up"></i>
+    </div>
+
+    <div>
+      <span>Total Income</span>
+      <h2>₹{{ total_income|floatformat:2 }}</h2>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-icon"><i class="fa-solid fa-bullseye"></i></div>
+    <div>
+      <span>Monthly budget</span>
+      <h2>₹{{ budget_total|floatformat:2 }}</h2>
+      <a href="{% url 'budgets' %}">{{ monthly_budget_count }} categories</a>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-icon">
+      <i class="fa-solid fa-arrow-trend-down"></i>
+    </div>
+
+    <div>
+      <span>Total Expenses</span>
+      <h2>₹{{ total_expenses|floatformat:2 }}</h2>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-icon">
+      <i class="fa-solid fa-wallet"></i>
+    </div>
+
+    <div>
+      <span>Balance</span>
+      <h2>₹{{ balance|floatformat:2 }}</h2>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-icon">
+      <i class="fa-solid fa-chart-pie"></i>
+    </div>
+
+    <div>
+      <span>Savings Rate</span>
+      <h2>{{ savings_rate|floatformat:1 }}%</h2>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-content">
+  <div class="dashboard-card">
+    <div class="card-header">
+      <div>
+        <h3>Income vs Expenses</h3>
+        <p>Your financial overview</p>
+      </div>
+    </div>
+
+    <div class="chart-placeholder">
+      <i class="fa-solid fa-chart-column"></i>
+      <p>Income: ₹{{ total_income|floatformat:2 }}</p>
+      <p>Expenses: ₹{{ total_expenses|floatformat:2 }}</p>
+      <p>Net savings: ₹{{ balance|floatformat:2 }}</p>
+    </div>
+  </div>
+
+  <div class="dashboard-card">
+    <div class="card-header">
+      <div>
+        <h3>Expense Breakdown</h3>
+        <p>Your spending categories</p>
+      </div>
+    </div>
+
+    {% if category_totals %}
+    <div class="expense-chart-wrapper">
+      <div class="expense-pie-chart">
+    <canvas
+        id="expenseBreakdownChart"
+        width="200"
+        height="200"
+    ></canvas>
+</div>
+
+      <div class="expense-legend">
+        {% for category in category_totals %}
+        <div class="expense-legend-item">
+          <span
+            class="expense-legend-dot"
+            style="background: {{ forloop.counter0 }};"
+          ></span>
+
+          <div>
+            <strong>{{ category.category }}</strong>
+            <span>₹{{ category.total|floatformat:2 }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="chart-placeholder">
+      <i class="fa-solid fa-chart-pie"></i>
+      <p>No expenses recorded yet.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% if category_totals %}
+<script>
+  const expenseLabels = [
+      {% for category in category_totals %}
+          "{{ category.category|escapejs }}"{% if not forloop.last %},{% endif %}
+      {% endfor %}
+  ];
+
+  const expenseValues = [
+      {% for category in category_totals %}
+          {{ category.total }}{% if not forloop.last %},{% endif %}
+      {% endfor %}
+  ];
+</script>
+{% endif %}
+
+<div class="ai-insight-card" id="insights">
+  <div class="ai-insight-icon">
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+  </div>
+
+  <div class="ai-insight-content">
+    <span>AI Financial Insights</span>
+
+    <h2>Your personalized financial assistant</h2>
+
+    <p>Get practical guidance based on this month's income and spending.</p>
+    <a href="{% url 'assistant' %}" class="secondary-btn">Open assistant</a>
+  </div>
+</div>
+
+<div class="dashboard-card recent-transactions-card">
+    <div class="card-header">
+        <div>
+            <h3>Recent transactions</h3>
+            <p>Your latest income and spending</p>
+        </div>
+
+        <a href="{% url 'transactions' %}" class="secondary-btn">
+            View all
+        </a>
+    </div>
+
+    <div class="transactions-list">
+        {% for transaction in recent_transactions %}
+
+            <div class="transaction-row">
+
+                <span>
+                    {{ transaction.source|default:transaction.description }}
+                </span>
+
+                <strong>
+                    {% if transaction.source %}
+                        +₹{{ transaction.amount|floatformat:2 }}
+                    {% else %}
+                        -₹{{ transaction.amount|floatformat:2 }}
+                    {% endif %}
+                </strong>
+
+            </div>
+
+        {% empty %}
+
+            <p>No transactions yet. Add your first income or expense.</p>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

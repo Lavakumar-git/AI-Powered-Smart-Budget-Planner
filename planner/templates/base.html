@@ -1,0 +1,253 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %}SmartBudget{% endblock %}</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- SmartBudget CSS -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+
+    {% block extra_css %}{% endblock %}
+  </head>
+
+  <body>
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Logo -->
+      <div class="sidebar-logo">
+        
+          <div class="logo-icon">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+
+          <div class="logo-text">
+            <span class="logo-title">SmartBudget</span>
+            <span class="logo-subtitle">AI Finance</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar-nav">
+        <p class="nav-section-title">MAIN</p>
+
+        <a href="{% url 'dashboard' %}" class="nav-link">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="{% url 'income_add' %}" class="nav-link">
+          <i class="fa-solid fa-arrow-trend-up"></i>
+          <span>Income</span>
+        </a>
+
+        <a href="{% url 'expense_add' %}" class="nav-link">
+          <i class="fa-solid fa-arrow-trend-down"></i>
+          <span>Expenses</span>
+        </a>
+
+        <a href="{% url 'transactions' %}" class="nav-link">
+          <i class="fa-solid fa-receipt"></i>
+          <span>Transactions</span>
+        </a>
+
+        <a href="{% url 'budgets' %}" class="nav-link">
+          <i class="fa-solid fa-bullseye"></i>
+          <span>Budgets</span>
+        </a>
+
+        <p class="nav-section-title">SMART TOOLS</p>
+
+        <a href="{% url 'assistant' %}" class="nav-link ai-nav-link">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>AI Assistant</span>
+          <span class="ai-badge">AI</span>
+        </a>
+
+        <p class="nav-section-title">ACCOUNT</p>
+
+        <a href="{% url 'profile' %}" class="nav-link">
+          <i class="fa-solid fa-user"></i>
+          <span>Profile</span>
+        </a>
+
+        <a href="{% url 'settings' %}" class="nav-link">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Bottom -->
+      <div class="sidebar-bottom">
+        <div class="sidebar-help">
+          <div class="help-icon">
+            <i class="fa-solid fa-circle-question"></i>
+          </div>
+
+          <div>
+            <strong>Need Help?</strong>
+            <span>Ask our AI assistant</span>
+          </div>
+        </div>
+
+        {% if user.is_authenticated %}
+
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+
+          <button type="submit" class="logout-link">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+          </button>
+        </form>
+
+        {% else %}
+
+        <a href="{% url 'login' %}" class="logout-link">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Login</span>
+        </a>
+
+        {% endif %}
+      </div>
+    </aside>
+
+    <!-- Main Application -->
+    <div class="app-wrapper">
+      <!-- Topbar -->
+      <header class="topbar">
+        <!-- Mobile Menu Button -->
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          type="button"
+          aria-label="Open navigation menu"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- Page Heading -->
+        <div class="topbar-heading">
+          <span class="topbar-label">SMARTBUDGET</span>
+
+          <h1>
+            {% block page_heading %} Smart Financial Planning {% endblock %}
+          </h1>
+        </div>
+
+        <!-- Topbar Actions -->
+        <div class="topbar-actions">
+          <!-- Theme Toggle -->
+          <button
+            class="topbar-icon-btn theme-toggle"
+            id="themeToggle"
+            type="button"
+            aria-label="Toggle theme"
+            title="Toggle light/dark mode"
+          >
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+          </button>
+
+          <!-- Notifications -->
+<a
+  href="{% url 'notifications' %}"
+  class="topbar-icon-btn notification-btn"
+  aria-label="Notifications"
+  title="Notifications"
+>
+  <i class="fa-regular fa-bell"></i>
+  <span class="notification-dot"></span>
+</a>
+
+          <!-- Profile -->
+          {% if user.is_authenticated %}
+
+          <a href="{% url 'profile' %}" class="topbar-profile">
+            <div class="profile-avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div class="profile-info">
+              <strong>{{ user.username }}</strong>
+              <span>My Account</span>
+            </div>
+
+            <i class="fa-solid fa-chevron-down profile-arrow"></i>
+          </a>
+
+          {% else %}
+
+          <a href="{% url 'login' %}" class="topbar-profile">
+            <div class="profile-avatar">
+              <i class="fa-solid fa-right-to-bracket"></i>
+            </div>
+
+            <div class="profile-info">
+              <strong>Welcome</strong>
+              <span>Sign In</span>
+            </div>
+          </a>
+
+          {% endif %}
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+      <!-- Footer -->
+      <footer class="site-footer">
+        <div class="footer-left">
+          <span>© 2026 SmartBudget</span>
+          <span class="footer-divider">•</span>
+          <span>AI-Powered Personal Finance</span>
+        </div>
+
+        <div class="footer-right">
+          <span>Plan smarter. Spend better. Save more.</span>
+        </div>
+      </footer>
+    </div>
+
+    <!-- SmartBudget JavaScript -->
+    <script src="{% static 'app.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

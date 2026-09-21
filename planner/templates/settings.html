@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Settings | SmartBudget{% endblock %}
+{% block page_heading %}Settings{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Settings</h1><p>Control account security and planning preferences.</p></div></div>
+<div class="dashboard-card settings-list">
+  <a class="transaction-row" href="{% url 'profile' %}"><div><strong>Profile and currency</strong><span>Update your name, email, currency, and targets.</span></div><i class="fa-solid fa-chevron-right"></i></a>
+  <a class="transaction-row" href="{% url 'password_change' %}"><div><strong>Change password</strong><span>Keep your account protected with a new password.</span></div><i class="fa-solid fa-chevron-right"></i></a>
+  <a class="transaction-row" href="{% url 'password_reset' %}"><div><strong>Account recovery</strong><span>Send a password reset link to your email.</span></div><i class="fa-solid fa-chevron-right"></i></a>
+</div>
+{% endblock %}

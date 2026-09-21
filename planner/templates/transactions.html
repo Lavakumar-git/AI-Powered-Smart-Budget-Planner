@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Transactions | SmartBudget{% endblock %}
+{% block page_heading %}Transactions{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Transactions</h1>
+    <p>Everything you have recorded, in one place.</p>
+  </div>
+  <div class="hero-actions">
+    <a href="{% url 'income_add' %}" class="primary-btn"><i class="fa-solid fa-plus"></i> Add income</a>
+    <a href="{% url 'expense_add' %}" class="secondary-btn"><i class="fa-solid fa-plus"></i> Add expense</a>
+  </div>
+</div>
+
+<div class="dashboard-card">
+  {% for item in transactions %}
+    <div class="transaction-row">
+      <div>
+        <strong>{{ item.label }}</strong>
+        <span>{{ item.record.date }}{% if item.record.category %} · {{ item.record.category }}{% endif %}</span>
+      </div>
+      <div>
+        <strong class="{% if item.kind == 'income' %}income-value{% else %}expense-value{% endif %}">{% if item.kind == 'income' %}+{% else %}-{% endif %}₹{{ item.record.amount|floatformat:2 }}</strong>
+        <a href="{% url 'transaction_edit' item.kind item.record.pk %}">Edit</a>
+        <form method="post" action="{% url 'transaction_delete' item.kind item.record.pk %}" style="display:inline">
+          {% csrf_token %}
+          <button type="submit" class="text-button">Delete</button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <div class="chart-placeholder">
+      <i class="fa-solid fa-receipt"></i>
+      <p>No transactions yet.</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

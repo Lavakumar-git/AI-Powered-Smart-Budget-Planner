@@ -1,0 +1,484 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+SmartBudget - AI-Powered Budget Planner
+{% endblock %}
+
+{% block page_heading %}
+Smart Financial Planning
+{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================
+     HERO SECTION
+     ===================================================== -->
+
+<section class="hero-section">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            <i class="fa-solid fa-sparkles"></i>
+            AI-Powered Personal Finance
+        </div>
+
+        <h1>
+            Take control of your
+            <span>financial future.</span>
+        </h1>
+
+        <p>
+            SmartBudget helps you track income, manage expenses,
+            understand your spending habits, and make smarter
+            financial decisions with AI-powered insights.
+        </p>
+
+        <div class="hero-actions">
+
+            <a href="{% url 'register' %}" class="primary-btn">
+                <i class="fa-solid fa-rocket"></i>
+                Get Started
+            </a>
+
+            <a href="#features" class="secondary-btn">
+                Explore Features
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+
+        </div>
+
+        <div class="hero-trust">
+
+            <div class="trust-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Your data stays private</span>
+            </div>
+
+            <div class="trust-item">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Simple & fast</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Financial Preview -->
+
+    <div class="hero-preview">
+
+        <div class="preview-header">
+
+            <div>
+                <span>Financial Overview</span>
+                <strong>This Month</strong>
+            </div>
+
+            <div class="preview-status">
+                <i class="fa-solid fa-circle"></i>
+                Live
+            </div>
+
+        </div>
+
+
+        <div class="preview-balance">
+
+            <span>Total Balance</span>
+
+            <strong>₹84,520.00</strong>
+
+            <small>
+                <i class="fa-solid fa-arrow-trend-up"></i>
+                12.8% from last month
+            </small>
+
+        </div>
+
+
+        <div class="preview-cards">
+
+            <div class="mini-card income-card">
+
+                <div class="mini-card-icon">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </div>
+
+                <div>
+                    <span>Income</span>
+                    <strong>₹1,25,000</strong>
+                </div>
+
+            </div>
+
+
+            <div class="mini-card expense-card">
+
+                <div class="mini-card-icon">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </div>
+
+                <div>
+                    <span>Expenses</span>
+                    <strong>₹40,480</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Preview Chart -->
+
+        <div class="preview-chart">
+
+            <div class="chart-label">
+                <span>Spending Overview</span>
+                <span>Last 7 days</span>
+            </div>
+
+            <div class="fake-chart">
+
+                <div class="chart-bars">
+
+                    <span style="height: 42%;"></span>
+                    <span style="height: 65%;"></span>
+                    <span style="height: 50%;"></span>
+                    <span style="height: 78%;"></span>
+                    <span style="height: 57%;"></span>
+                    <span style="height: 88%;"></span>
+                    <span style="height: 68%;"></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     QUICK STATS
+     ===================================================== -->
+
+<section class="quick-stats">
+
+    <div class="stat-card">
+
+        <div class="stat-icon blue">
+            <i class="fa-solid fa-wallet"></i>
+        </div>
+
+        <div>
+            <span>Track Everything</span>
+            <strong>Income & Expenses</strong>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon green">
+            <i class="fa-solid fa-chart-line"></i>
+        </div>
+
+        <div>
+            <span>Understand</span>
+            <strong>Your Spending</strong>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon purple">
+            <i class="fa-solid fa-brain"></i>
+        </div>
+
+        <div>
+            <span>Powered by</span>
+            <strong>Artificial Intelligence</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+     ===================================================== -->
+
+<section class="features-section" id="features">
+
+    <div class="section-heading">
+
+        <span class="section-label">POWERFUL FEATURES</span>
+
+        <h2>
+            Everything you need to
+            <span>manage your money.</span>
+        </h2>
+
+        <p>
+            SmartBudget brings your personal finances together
+            in one simple and intelligent platform.
+        </p>
+
+    </div>
+
+
+    <div class="features-grid">
+
+        <article class="feature-card">
+
+            <div class="feature-icon blue">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+
+            <h3>Smart Dashboard</h3>
+
+            <p>
+                Get a clear overview of your income, expenses,
+                balance and savings in one place.
+            </p>
+
+            <a href="{% url 'dashboard' %}">
+                Explore Dashboard
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <div class="feature-icon green">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+            </div>
+
+            <h3>Income Tracking</h3>
+
+            <p>
+                Record and organize your income sources so you
+                always know where your money comes from.
+            </p>
+
+            <a href="{% url 'income_add' %}">
+                Track Income
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <div class="feature-icon red">
+                <i class="fa-solid fa-receipt"></i>
+            </div>
+
+            <h3>Expense Management</h3>
+
+            <p>
+                Keep track of daily spending and understand
+                exactly where your money is going.
+            </p>
+
+            <a href="{% url 'expense_add' %}">
+                Manage Expenses
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </article>
+
+
+        <article class="feature-card ai-feature">
+
+            <div class="feature-icon purple">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+
+            <div class="ai-feature-badge">
+                AI POWERED
+            </div>
+
+            <h3>AI Financial Insights</h3>
+
+            <p>
+                Get personalized financial insights and practical
+                suggestions based on your spending patterns.
+            </p>
+
+            <a href="{% url 'dashboard' %}#insights">
+                Meet Your AI Assistant
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     AI SECTION
+     ===================================================== -->
+
+<section class="ai-section">
+
+    <div class="ai-glow"></div>
+
+    <div class="ai-content">
+
+        <div class="ai-section-icon">
+            <i class="fa-solid fa-robot"></i>
+        </div>
+
+        <span class="section-label">
+            SMARTER WITH AI
+        </span>
+
+        <h2>
+            Your personal
+            <span>financial assistant.</span>
+        </h2>
+
+        <p>
+            Don't just track your money. Understand it.
+            SmartBudget's AI assistant analyzes your financial
+            activity and provides useful insights to help you
+            make better decisions.
+        </p>
+
+        <div class="ai-points">
+
+            <div>
+                <i class="fa-solid fa-check"></i>
+                Personalized spending insights
+            </div>
+
+            <div>
+                <i class="fa-solid fa-check"></i>
+                Smart saving suggestions
+            </div>
+
+            <div>
+                <i class="fa-solid fa-check"></i>
+                Ask questions about your finances
+            </div>
+
+        </div>
+
+        <a href="#" class="ai-btn">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Explore AI Assistant
+        </a>
+
+    </div>
+
+
+    <div class="ai-chat-preview">
+
+        <div class="chat-header">
+
+            <div class="chat-avatar">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+
+            <div>
+                <strong>SmartBudget AI</strong>
+                <span>Financial Assistant</span>
+            </div>
+
+            <div class="online-dot"></div>
+
+        </div>
+
+
+        <div class="chat-body">
+
+            <div class="chat-message ai-message">
+                <span>
+                    Hi! I've analyzed your spending this month.
+                    You are spending 18% less on unnecessary
+                    purchases compared with last month.
+                </span>
+            </div>
+
+            <div class="chat-message user-message">
+                <span>
+                    How can I save more this month?
+                </span>
+            </div>
+
+            <div class="chat-message ai-message">
+                <span>
+                    You could save around ₹4,500 by reducing
+                    dining and entertainment expenses.
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+            <span>Ask your AI assistant...</span>
+
+            <button>
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CALL TO ACTION
+     ===================================================== -->
+
+<section class="cta-section">
+
+    <div>
+
+        <span class="section-label">
+            START TODAY
+        </span>
+
+        <h2>
+            Build better financial habits.
+        </h2>
+
+        <p>
+            Start tracking your money and take the first step
+            toward smarter financial planning.
+        </p>
+
+    </div>
+
+    <a href="#" class="primary-btn">
+        Create Your Budget
+        <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+</section>
+
+{% endblock %}
+```

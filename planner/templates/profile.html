@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}Profile | SmartBudget{% endblock %}
+{% block page_heading %}Profile{% endblock %} {% block content %}
+
+<section class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
+
+      <h1>Your profile</h1>
+
+      <p>Manage your identity and planning preferences.</p>
+    </div>
+
+    <form method="post" class="auth-form" id="profileForm">
+      {% csrf_token %} {% for field in form %}
+
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}"> {{ field.label }} </label>
+
+        {{ field }} {% if field.errors %}
+
+        <div class="field-error">{{ field.errors }}</div>
+
+        {% endif %}
+      </div>
+
+      {% endfor %}
+
+<button
+    type="button"
+    class="auth-submit"
+    id="profileEditButton"
+>
+    Edit profile
+    <i class="fa-solid fa-pen"></i>
+</button>
+
+<button
+    type="submit"
+    class="auth-submit"
+    id="profileSaveButton"
+    hidden
+>
+    Update profile
+    <i class="fa-solid fa-check"></i>
+</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

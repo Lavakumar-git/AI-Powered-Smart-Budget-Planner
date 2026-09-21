@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Page not found</h1>
+        <p>The page or transaction you're looking for doesn't exist.</p>
+    </div>
+</div>
+
+<div class="dashboard-card">
+    <div class="empty-notifications">
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+        <h3>404 — Not Found</h3>
+
+        <p>
+            The requested transaction or page could not be found.
+        </p>
+
+        <a href="{% url 'dashboard' %}" class="primary-btn">
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+
+{% endblock %}

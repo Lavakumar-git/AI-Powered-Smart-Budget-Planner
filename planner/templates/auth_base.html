@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}SmartBudget{% endblock %}</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- SmartBudget CSS -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="auth-layout">
+
+    <!-- Authentication Header -->
+    <header class="auth-navbar">
+
+        <a href="{% url 'home' %}" class="auth-brand">
+
+            <div class="auth-brand-icon">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+
+            <div class="auth-brand-text">
+                <strong>SmartBudget</strong>
+                <span>AI Finance</span>
+            </div>
+
+        </a>
+
+
+        <div class="auth-navbar-actions">
+
+            <button
+                class="topbar-icon-btn theme-toggle"
+                id="themeToggle"
+                type="button"
+                aria-label="Toggle theme"
+                title="Toggle light/dark mode"
+            >
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+
+            <a href="{% url 'home' %}" class="auth-home-link">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- Authentication Content -->
+    <main class="auth-main">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- Authentication Footer -->
+    <footer class="auth-footer-bar">
+
+        <span>
+            © 2026 SmartBudget
+        </span>
+
+        <span>
+            AI-Powered Personal Finance
+        </span>
+
+    </footer>
+
+
+    <!-- SmartBudget JavaScript -->
+    <script src="{% static 'app.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>
