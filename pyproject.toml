@@ -2,6 +2,12 @@
 name = "smartbudget"
 version = "0.1.0"
 requires-python = ">=3.13"
+dependencies = [
+    "Django==6.1.1",
+    "dj-database-url==3.1.2",
+    "google-genai==2.24.0",
+    "psycopg==3.3.6",
+]
 
 [tool.vercel.scripts]
 build = "python manage.py migrate --noinput"
